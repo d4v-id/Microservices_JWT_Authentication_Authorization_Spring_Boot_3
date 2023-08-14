@@ -1,4 +1,4 @@
-## Microservices_JWT_Authentication_Authorization_Spring-Boot-3
+# Microservices_JWT_Authentication_Authorization_Spring-Boot-3
 
 [![Spring Boot 3.1.1](https://img.shields.io/badge/Spring%20Boot-3.1.1-green.svg?logo=spring-boot)](https://spring.io/blog/2023/06/22/spring-boot-3-1-1-available-now)
 [![Spring Security 5](https://img.shields.io/badge/Spring%20Security-5-green.svg?logo=spring)](https://docs.spring.io/spring-security/reference/index.html)
@@ -9,7 +9,7 @@
 
 This project implements microservices for the API backend using Authentication & Authorization security. With each service having its own database for microservices. PostgresSQL database used in this project and uses **Spring Boot** Maven. 
 
-### Installation
+## Installation
 You can install this Spring Boot Applications locally or on a server/cloud. Installation via the cloud such as: AWS, Azure, Google Cloud, and etc. You can visit the steps from this link [Deploying Spring Boot Applications on Cloud](https://docs.spring.io/spring-boot/docs/current/reference/html/deployment.html#deployment.cloud). For this installation, I only did a local installation and on an Ubuntu server/VM.
 
 - On local (Windows):
@@ -29,3 +29,8 @@ You can install this Spring Boot Applications locally or on a server/cloud. Inst
      ```bash
      $ export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
      ```
+
+## How To Run
+- On local (Windows):
+  - Set the username and password corresponding to PostgreSQL/pgAdmin as well as the port and database name in 
+    `application.properties` file.
