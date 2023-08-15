@@ -12,12 +12,12 @@ This project implements microservices for the API backend using Authentication &
 ## Installation
 You can install this Spring Boot Applications locally or on a server/cloud. Installation via the cloud such as: AWS, Azure, Google Cloud, and etc. You can visit the steps from this link [Deploying Spring Boot Applications on Cloud](https://docs.spring.io/spring-boot/docs/current/reference/html/deployment.html#deployment.cloud). For this installation, I only did a local installation and on an Ubuntu server/VM.
 
-- On local (Windows):
+- **On local (Windows):**
   - Install [Java JDK 17](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
   - Install [PostgreSQL](https://www.postgresql.org/download/windows/)
   - Install [IDE Intellij](https://www.jetbrains.com/idea/download/?section=windows)
     
-- On Ubuntu Server/VM:
+- **On Ubuntu Server/VM:**
   - ```bash
     $ sudo su
     $ apt update
@@ -31,6 +31,27 @@ You can install this Spring Boot Applications locally or on a server/cloud. Inst
      ```
 
 ## How To Run
-- On local (Windows):
-  - Set the username and password corresponding to PostgreSQL/pgAdmin as well as the port and database name in 
-    `application.properties` file.
+- **On local (Windows):**
+  - Set the username and password corresponding to PostgreSQL/pgAdmin as well as the port and database name file 
+    `application.properties` in each project service.
+    ```bash
+    spring.datasource.url= jdbc:postgresql://localhost:5432/auth-service  
+    spring.datasource.username= auth
+    spring.datasource.password= veduser
+
+    #spring.datasource.url= jdbc:postgresql://localhost:5432/auth-service
+    # Default of the PostgreSQL database is postgres (Ex: jdbc:postgresql://localhost:5432/postgres)   
+    #spring.datasource.username= <Your Username PostgteSQL>
+    #spring.datasource.password= <Your Password PostgteSQL>
+    ```
+  - To create a database you can do _"Right Click" > "Create" > "Database"_ in the PgAdmin 4 (PostgreSQL) application on Windows.
+  - Especially for `auth-service` database in the **roles** table in PgAdmin4 (PostgreSQL). Add the following SQL query for the 
+    _authorization_ function to run according to the role you want in the `/model/ERole.java` file :
+    ```sql
+    INSERT INTO roles(name) VALUES('ROLE_USER');
+    INSERT INTO roles(name) VALUES('ROLE_ADMIN');
+    ```
+  - Then, run each services in the **Intelij IDE**. Make sure you run **Eureka Server** with the default port 8761 `localhost:8761` 
+    and also make sure that all services are connected via the eureka server display.
+    
+- **On Ubuntu Server:**
