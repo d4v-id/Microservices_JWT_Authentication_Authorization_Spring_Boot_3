@@ -21,6 +21,7 @@ You can install this Spring Boot Applications locally or on a server/cloud. Inst
   - ```bash
     $ sudo su
     $ apt update
+    $ apt install git
     $ apt install maven
     $ apt install openjdk-17-jdk
     $ apt install postgresql postgresql-contrib
@@ -87,4 +88,32 @@ You can install this Spring Boot Applications locally or on a server/cloud. Inst
     # Give access permissions to users on the database
     GRANT ALL PRIVILEGES ON DATABASE "auth-service" TO auth;
     ```
-  - 
+  - Especially for `auth-service` database in the **roles** table in _PostgreSQL_ `psql`. Run the command below to go to the `auth-service` database on `psql`:
+    ```sql
+    \c auth-service
+    ```
+  - To check you are already in the auth-service database. Run the command below :
+    ```sql
+    SELECT * FROM roles;
+    ```
+  - If the **roles** table is empty, Add the following SQL query for the _authorization_ function to run according to the role you 
+    want 
+    in the `/model/ERole.java` file :
+    ```sql
+    INSERT INTO roles(name) VALUES('ROLE_USER');
+    ```
+    ```sql
+    INSERT INTO roles(name) VALUES('ROLE_ADMIN');
+    ```
+  - Then, clone repository and go to the folder service. _Example_ `auth-service` :
+    ```bash
+    $ sudo su git clone https://github.com/d4v-id/Microservices_JWT_Authentication_Authorization_Spring_Boot_3.git
+    $ cd Microservices_JWT_Authentication_Authorization_Spring_Boot_3
+    $ cd auth-service
+    ```
+  - Make sure there is a `POM.xml` in the folder and run the following command to package the maven project so it can be used later 
+    on `systemd` :
+    ```bash
+    $ sudo su
+    $ mvn clean package
+    ```
