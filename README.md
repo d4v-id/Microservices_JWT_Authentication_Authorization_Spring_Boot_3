@@ -44,8 +44,8 @@ You can install this Spring Boot Applications locally or on a server/cloud. Inst
     #spring.datasource.username= <Your Username PostgteSQL>
     #spring.datasource.password= <Your Password PostgteSQL>
     ```
-  - To create a database you can do _"Right Click" > "Create" > "Database"_ in the PgAdmin 4 (PostgreSQL) application on Windows.
-  - Especially for `auth-service` database in the **roles** table in PgAdmin4 (PostgreSQL). Add the following SQL query for the 
+  - To create a database you can do _"Right Click" > "Create" > "Database"_ in the PgAdmin 4 (_PostgreSQL_) application on Windows.
+  - Especially for `auth-service` database in the **roles** table in PgAdmin4 (_PostgreSQL_). Add the following SQL query for the 
     _authorization_ function to run according to the role you want in the `/model/ERole.java` file :
     ```sql
     INSERT INTO roles(name) VALUES('ROLE_USER');
@@ -55,3 +55,36 @@ You can install this Spring Boot Applications locally or on a server/cloud. Inst
     and also make sure that all services are connected via the eureka server display.
     
 - **On Ubuntu Server:**
+  - Running Spring Boot Applications can use `systemd` on ubuntu server. **Systemd** is the successor of the System V init system 
+    and is now being used by many modern Linux distributions. Before making each service have `systemd`, first set up the 
+    **_PostgreSQL_** database for each service on ubuntu server.
+  - Make sure you have installed _PostgreSQL_ at the installation stage, now you can run command below :
+    ```bash
+    $ sudo -u postgres psql
+    ```
+    If the above command doesn't work, it's usually the case with recent versions of `Ubuntu-Server-22.04.2` and above. To fix it 
+    you can run the following command, to see if the cluster on PostgreSQL is running or not : (_Optional_)
+    ```bash
+    $ sudo pg_ctlcluster
+    ```
+    Or you can run the command directly cluster on PostgreSQL : (_Optional_)
+    ```bash
+    $ sudo pg_ctlcluster 14 main start
+    ```
+    Adjust the command above with your PostgreSQL version `psql --version` and run the command again.
+  - If you are already in PostgreSQL from the command :
+    ```bash
+    $ sudo -u postgres psql
+    ```
+  - Run the command below, according to the username and password on `application.properties` file :
+    ```sql
+    # Create username and password
+    CREATE USER auth WITH PASSWORD 'veduser';
+
+    # Create database
+    CREATE DATABASE "auth-service";
+    
+    # Give access permissions to users on the database
+    GRANT ALL PRIVILEGES ON DATABASE "auth-service" TO auth;
+    ```
+  - 
