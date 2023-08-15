@@ -127,7 +127,50 @@ You can install this Spring Boot Applications locally or on a server/cloud. Inst
   - Check that SNAPSHOT.jar is already in the _target_ folder with the `ls` command _(Example: `demo-0.0.1-SNAPSHOT.jar`)_ . Then, 
     give permission to the file so that it can be executed and run. By running the command below :
     ```bash
+    $ sudo su
     $ chmod +x demo-0.0.1-SNAPSHOT.jar
+    $ chown -R ubuntuusername:ubuntuusername /home/ubuntuusername/auth-service
+    $ chmod -R 755 /home/ubuntuusername/auth-service
     ```
-    
-    
+  - Now, make `systemd` from the maven build that has been made so that it can run on the **Ubuntu Server**. Go to path
+    `/etc/systemd/system` :
+    ```bash
+    $ cd /etc/systemd/system
+    $ nano auth.service
+    ```
+    ```bash
+    [Unit]
+    Description=Auth Spring Boot Application
+    After=syslog.target
+
+    [Service]
+    User=root
+    WorkingDirectory=/home/ubuntuusername/auth-service/target/
+    ExecStart=/usr/bin/java -jar /home/ubuntuusername/auth-service/target/demo-0.0.1-SNAPSHOT.jar
+    SuccessExitStatus=143
+
+    [Install]
+    WantedBy=multi-user.target
+    ```
+    Adjust the directory in the [Service] section in `WorkingDirectory` and `ExecStart` with the service Spring Boot Application 
+    project path. You can check which directory is in the target folder with the `pwd` command, then set it back on `nano 
+    auth.service` file.
+  - The last step, To run the `systemd` that has been created, run the command below :
+    ```bash
+    $ sudo su
+    $ systemctl daemon-reload
+    $ systemctl restart auth.service
+    $ systemctl status auth.service
+    ```
+    Wait a few seconds to make sure the service is running and run it again `systemctl status auth.service`.
+    > **[!NOTE]** If status is inactive and still failed when running `systemctl status auth.service`. Try change the `[Service]`          section in `User` **_root_** with ubuntu username in nano `auth.service`
+    > **[!IMPORTANT]** Do the same from the steps above for each service including the Eureka server. For example, in the case of 
+      each ubuntu server, it can only have 2 services with different ports and eureka-server can stand alone in one ubuntu-server .
+  - Final step, give access to each firewall port so that it can be accessed from an external system with command `ufw allow 
+    <port>`:
+    ```bash
+    $ sudo su
+    $ ufw allow 8761
+    $ ufw allow 8099
+    $ etc...
+    ```
