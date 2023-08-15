@@ -6,6 +6,7 @@
 [![PostgreSQL 14](https://img.shields.io/badge/PostgreSQL-v14-blue.svg?logo=postgresql)](https://www.postgresql.org/)
 [![Java 17](https://img.shields.io/badge/Java-17-blue.svg)](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
 [![Maven 4](https://img.shields.io/badge/Maven-4.0-orange.svg?logo=maven)](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
+[![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
 
 This project implements microservices for the API backend using Authentication & Authorization security. With each service having its own database for microservices. PostgresSQL database used in this project and uses **Spring Boot** Maven. 
 
@@ -163,8 +164,9 @@ You can install this Spring Boot Applications locally or on a server/cloud. Inst
     $ systemctl status auth.service
     ```
     Wait a few seconds to make sure the service is running and run it again `systemctl status auth.service`.
-    > **[!NOTE]** If status is inactive and still failed when running `systemctl status auth.service`. Try change the `[Service]`          section in `User` **_root_** with ubuntu username in nano `auth.service`
-    > **[!IMPORTANT]** Do the same from the steps above for each service including the Eureka server. For example, in the case of 
+    > **[NOTE]** If status is inactive and still failed when running `systemctl status auth.service`. Try change the `[Service]`          section in `User` **_root_** with ubuntu username in nano `auth.service`
+    
+    > **IMPORTANT]** Do the same from the steps above for each service including the `eureka-server`. For example, in the case of 
       each ubuntu server, it can only have 2 services with different ports and eureka-server can stand alone in one ubuntu-server .
   - Final step, give access to each firewall port so that it can be accessed from an external system with command `ufw allow 
     <port>`:
@@ -174,3 +176,17 @@ You can install this Spring Boot Applications locally or on a server/cloud. Inst
     $ ufw allow 8099
     $ etc...
     ```
+## Run Test 
+[![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
+After all the steps have been completed, try running the API server (Spring Boot Applications) externally in a browser with `http://<YOUR-IP-UBUNTU-SERVER>:<YOUR-PORT>`. _Example `http://192.168.67.101:8761`_
+
+If you do it in **VirtualMachine** (VirtualBox) with `NAT` network type you can set the port to be accessible externally by following the steps below:
+ 1. Go to "Settings" on your VM.
+ 2. Click "Advanced" and then "Port Forwarding".
+ 3. Add rules with **_"Add Port Forwarding Rules"_** on right section, then set `Host Port` and `Guest Port` with port for each service in the Spring Boot Applications.
+ 4. Save with, _OK_
+
+You can also test the API using [Postman](https://www.postman.com/downloads/) / [Testmace](https://testmace.com/).
+
+## Need Help ?
+Email me: `d4vbusiness@gmail.com`
