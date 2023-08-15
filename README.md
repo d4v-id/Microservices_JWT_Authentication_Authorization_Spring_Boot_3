@@ -111,9 +111,23 @@ You can install this Spring Boot Applications locally or on a server/cloud. Inst
     $ cd Microservices_JWT_Authentication_Authorization_Spring_Boot_3
     $ cd auth-service
     ```
-  - Make sure there is a `POM.xml` in the folder and run the following command to package the maven project so it can be used later 
-    on `systemd` :
+  - Make sure there is a `POM.xml` in the folder use `ls` to check and run the following command to build package the maven project 
+    so it can be used later on `systemd` :
     ```bash
     $ sudo su
     $ mvn clean package
     ```
+    > **[NOTE]** Make sure the "_BUILD SUCCESS_", if not try to check again on the `application.properties` file and the PostgreSQL 
+    `psql` database has the correct naming including.
+  - Go to _target_ folder. Every time you build a maven project, the build results will be in the _target_  folder service with the 
+    name `SNAPSHOT` with the `.jar` extension :
+    ```bash
+    $ cd target
+    ```
+  - Check that SNAPSHOT.jar is already in the _target_ folder with the `ls` command _(Example: `demo-0.0.1-SNAPSHOT.jar`)_ . Then, 
+    give permission to the file so that it can be executed and run. By running the command below :
+    ```bash
+    $ chmod +x demo-0.0.1-SNAPSHOT.jar
+    ```
+    
+    
